@@ -1,5 +1,6 @@
 const User = require('../models/users');
-
+const bcrypt = require('bcrypt');
+const salt = 10;
 //signUp To User
 module.exports.signup = async (req,res)=>{
     try {
@@ -22,11 +23,13 @@ module.exports.signup = async (req,res)=>{
                 data:{},
             });
         }
+        // using bcrypt
+        const hashPassword = bcrypt.hashSync(password, salt);
         //create User
         const user = await User.create({
             name:name,
             email:email,
-            password:password,
+            password:hashPassword,
         });
         //sand the response
         return res.status(200).json({
@@ -58,8 +61,10 @@ module.exports.signin = async (req,res)=>{
                 data:{},
             });
         }
+        //using bcrypt
+        const isPassword = bcrypt.compareSync(password, user.password);
         //compare both credentials
-        if(password != user.password){
+        if(!isPassword){
             return res.status(400).json({
                 message:'Invalaid Attemts || password Does not match',
                 data:{},
