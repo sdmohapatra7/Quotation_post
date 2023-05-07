@@ -20,6 +20,8 @@ const userSchema = new mongoose.Schema({
             ref:"Quotation"
         }
     ]
+},{
+    timestamps:true
 });
 
 const User = mongoose.model('user',userSchema);

@@ -4,7 +4,7 @@ const salt = 10;
 //signUp To User
 module.exports.signup = async (req,res)=>{
     try {
-        //get the user data from req.body
+        //get the user data from req.body by destructure method
         const { name,email,password,confirmPassword } = req.body;
         console.log(req.body);
         //check password and cofirmpassword same or not
@@ -39,10 +39,10 @@ module.exports.signup = async (req,res)=>{
                 email:email,
             }
         })
-    } catch (error) {
+    } catch (err) {
         return res.status(500).json({
             message:'Oops Something Went Wrong',
-            data:'err',
+            data:err,
         });
     }
 }
@@ -75,10 +75,10 @@ module.exports.signin = async (req,res)=>{
             message:'login Successfully',
             data: user,
         })
-    } catch (error) {
+    } catch (err) {
         return res.status(500).json({
             message:'Oops Something Went Wrong',
-            data:'err',
+            data:err,
         });
     }
 }
