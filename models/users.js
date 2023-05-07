@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     quotation:[
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref:"Quotation"
+            ref:"quotation"
         }
     ]
 },{

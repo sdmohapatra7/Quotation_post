@@ -76,14 +76,17 @@ module.exports.updateQuot = async (req, res) => {
     }
 }
 
-module.exports.allQuot = async (req, res) => {
+module.exports.getAllQuot = async (req, res) => {
     try {
-        const quotations = await Quotation.find({}).populate("user", "name");
+        // const quotations = await Quotation.find({}).populate("user", "name");
+        const quotations = await Quotation.find({}).populate({
+            path:'user',
+            select:'name email'
+        });
+        // console.log(quotations);
         return res.status(200).json({
             message: "Quotations fetch succesfully",
-            data: {
-                quotations: quotations,
-            },
+            data: {quotations},
         });
     } catch (err) {
         return res.status(500).json({
