@@ -3,6 +3,7 @@ const port = 300;
 const app = express();
 const routes = require('./routes/index');
 const URL = require('./config/mongoose')
+const passportJwt = require('./config/passport_jwt');
 //middleware
 app.use(express.urlencoded());
 app.use('/',routes);

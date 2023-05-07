@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 const userController = require('../controllers/userController');
 const quotationController = require('../controllers/quotationController');
 
 router.post('/signup',userController.signup);
 router.post('/signin',userController.signin);
-router.post('/create',quotationController.createQuot);
-router.delete('/delete/:userId',quotationController.deleteQuot);
-router.put('/update/:userId',quotationController.updateQuot);
+router.post('/create',passport.authenticate("jwt", { session: false }),quotationController.createQuot);
+router.delete('/delete/:userId',passport.authenticate("jwt", { session: false }),quotationController.deleteQuot);
+router.put('/update/:userId',passport.authenticate("jwt", { session: false }),quotationController.updateQuot);
+router.get('/quotations',passport.authenticate("jwt", { session: false }),quotationController.allQuot);
 
 module.exports = router;
